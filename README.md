@@ -39,69 +39,70 @@ These individuals have been reported in the news as possible tweeters on Trump's
 
 I used Brendan Brown's [Trump Tweet Data Archive](https://github.com/bpb27/trump_tweet_data_archive) to collect all tweets from the beginning of Trump's account in mid-2009 up until the end of 2017. This set consists of nearly 33,000 tweets. Even though I know from whose device a tweet originated, there is still some ambiguity around the authorship because Trump is known to dictate tweets to assistants, so a tweet may have Trump's characteristics but be posted from a non-Trump device, and also (especially during the campaign) to write tweets collaboratively with aides, making true authorship unclear.
 
-## Feature engineering
+## Features
+Other than the favourite count and retweet count in the original dataset, Here are some features
+we extracted:
+The first three features we extracted are whether the tweet contains hashtag(#), at(@), or
+external link, because it is possible that Trump likes plain text without those special characters.
+Due to the same reason, we also checked if the tweet contains punctuations such as
+exclamation mark, quotes, etc. We aslo, believe the punctuations in each tweet might reveal
+some information like quotation mark and exclamation marks,etc. Therefore we count the
+occurance of different punctuations and mark them as features as well.
+Also, to capture the vocabulary used by Trump perform TF-IDF on the tweet text. We also
+record length of feature. Then, we filtered the sentence by deleting all the noisy marks like
+punctuations (already counted them) and then extract the positive and negative sentiment from
+the tweet using NLTK sentiment analysis.
+Besides language patterns, we also categorize the timestamp of tweets into different categories:
+whether the tweet is sent on weekdays, the different time slots the tweet is sent (multinomial
+feature), since we believe that different people like to use their phones in different time.
+Finally, we did something similar in project 3: we split sentences into tokens and hashed tokens
+into fifteen buckets. How we choice bucket size is explained in later section.
 
-### Style
-I looked at the style of each tweet by counting various punctuation marks (the number of exclamation marks, for example), the number of @mentions and #hashtags, and average tweet/sentence/word length.
 
-### Trump quirks
-I also created features for what I have recognized as Trump's rather unique Twitter behavior. These features include the "quoted retweet" (where Trump copies and pastes a another user's tweet onto his own timeline and surrounds it in quotation marks), words written in ALL CAPS or followed by several exclamation points!!!, and also middle-of-the-night tweeting.
+## Preprocessing
+In our training data, some features represents counts, some represents booleans, and some
+represents timeslots. If we feed this training data into model, some features will be
+over-weighted heavily. We assume that each feature shares the same weight, so we normalize
+each feature before we feed the data. We divided the data in the training file into our training set
+and validation set with a ratio of 0.85 : 0.15.
 
-### Sentiment
-I used C.J. Hutto's [VADER](https://github.com/cjhutto/vaderSentiment) package to extract the sentiment of each tweet. VADER, which stands for Valence Aware Dictionary and sEntiment Reasoning, is a lexicon and rule-based tool that is specifically tuned to social media. Given a string of text, it outputs a number between 0 and 1 for negativity, positivity, and neutrality
-for the text, as well as a compound score from -1 to 1 which is an aggregate measure.
-
-### Emotion
-The National Research Council of Canada created a [lexicon](http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm) of over 14,000 words, each rated as belonging to any of 10 emotion classes. For each tweet, I counted the number of words for each emotion class and assigned the tweet that count score for each emotion.
-
-### Word choice
-I performed TF-IDF on the text of each tweet in order to pick up vocabulary unique to Trump or his staff.
-
-### Grammatical structure
-I knew the phrasing of Trump's tweets would stand out from that of his staff, so in order to capture this I performed part-of-speech replacement on each tweet, reducing it to a string of its parts of speech. For example, the phrase "Hello. This is a tweet which has been parsed for parts of speech" would be replaced with "UH . DT BZ DT NN WDT VBZ VBN VBN IN NNS IN NN ", using the [Penn part of speech tags](https://cs.nyu.edu/grishman/jet/guide/PennPOS.html).
-
+## How we searched for hyper-parameters:
+We basically iterates through possible hyperparameters and choice the one with the best
+performance. Take the max_depth of random forest as an example. We printed out the
+validation accuracy of the forest as a function of max depth, and found that max depth 5
+resulted in the highest accuracy.
 
 ## Models
 
-I created models for Naive Bayes, SVM, Logistic Regression with Ridge Regularization, KNN, and the ensemble methods of Random Forest, Gradient Boosting, and AdaBoost. All models achieved accuracy, precision, and recall rates in the low 90%s, except for Naive Bayes which was in the mid 80%s. For my final model, I found that an ensemble of these individual models worked best.
-
-Additionally, I used the Ridge Regularization to iteratively drive each of the roughly 900 feature coefficients to zero with ever increasing alpha values. This allowed me to rank each feature in order of its importance to the logistic regression model. At an alpha-level of 3e22, the first feature dropped out when its regression coefficient was driven to zero. Slowly, more features dropped out until an alpha-level of about 10e25, when the feature dropout rapidly increased. Above an alpha-level of 10e26, the dropout rate slowed down, and these features still left are the most influential features in the model.
+I created models for KNN, SVM with linear kernel,Random Forest, Gradient Boosting,AdaBoost, Navie Bayes, PCA+NB and PCA+SVM. All models achieved accuracy, precision, and recall rates in the low 90%s, except for Naive Bayes which was in the mid 80%s. For my final model, I found that an ensemble of these individual models worked best.
+We have also tried Ridge Regression for shirinking the feature coefficients.
+Also, deep learning methods are used in the projects. 
 
 ![Ridge Regularization](images/ridge.png)
 
 ## Results
 
-One of the most interesting results from my analysis is the characteristics which identify a tweet as coming from Trump or from someone else. From my Ridge analysis, the top Trump features are:
-
-* Quoted retweet
-* @mentions
-* Between 10pm and 10am
-* Exclamations!!!
-* ALL CAPS
-* Tweet length: 114 characters
-* @realDonaldTrump
-
-The top features of non-Trump tweets are:
-
-* True retweets
-* The word “via”
-* Between 10am and 4pm
-* Semicolons
-* Periods
-* Tweet length: 103 characters
-* @BarackObama
-
 Trump's tweets are in general more emotive than his aides' tweets, exhibiting high scores for the emotions surprise, anger, negativity, disgust, joy, sadness, and fear. Non-Trump tweets, in contrast, are relatively unemotional, and feature many URLs, hashtags, and organization names.
 
 As for the models, Random Forest performed the best on its own, with AdaBoost a close second. Naive Bayes performed most poorly of the models tested.
 
-|   |Gradient Boosting|Random Forest|AdaBoost|Logistic Regression|KNN|SVM|Naive Bayes|
-|---:|:--------------:|:-----------:|:------:|:-------------:|:---:|:---:|:---------:|
-|Accuracy|95%|94%|92%|90%|90%|90%|84%|
-|Precision|95%|94%|92%|90%|91%|90%|83%|
-|Recall|95%|95%|90%|88%|89%|90%|82%|
+|   |KNN(K=3)|Random Forest|AdaBoost|Gradient Boosting|SVM| PCA+SVM|Naive Bayes|NB+PCA| Deep Learning|
+|---:|:--------------:|:-----------:|:------:|:-------------:|:---:|:---:|:---------:|:---------:|
+|Accuracy|86.7%|86.7%|86.7%|85.8%|58.7%|80.7%|55.04%|80.2%|87.2%|
 
-For my final model, I created an ensemble of all seven models, using the majority class as my predictor.
+
+Essentially, we need to model dependency of created features to the target label. Due to the
+size of feature we created, feature reduction is needed to remove unnecessary features. We
+have tried selecting features using Ridge Regression via shrinking feature coefficients. For the
+same purpose, Neural Network will extract the key feature and assign a reasonable weight to it
+automatically and thereby might generating a better representation of model to optimize the
+result for us.
+
+To have more data, for the final model, we combine the training and validation set. One
+downside of that, due to lack of dev set, during training, we have no idea if we overfitting the
+training set. Therefore, we only trained 3 epoches, given the neural model is very shallow to
+avoid overfitting. Aslo, we add dropout after the first layer for the same purpose. The validation
+accuracy of our model achieves 0.871 for the neural model we created.
 
 ## The Flynn Tweet
 
@@ -111,20 +112,6 @@ And as for that Flynn Tweet? My analysis indicates it was most likely not writte
 
 A word of caution though: not all of my models individually agreed on this one. Specifically, AdaBoost, KNN, and SVM indicated that it is a non-Trump tweet. Random Forest, Naive Bayes, and Logistic Regression all output Trump as the author. In my opinion, after reviewing thousands of Trump tweets throughout this project and evaluating all features which describe his tweets, I find the topic, sentiment, and emotion very much to be Trumpian, while the phrasing, grammar, and style all indicate another author. I believe the tweet was written collaboratively, with Trump providing the topical features of the tweet and an unknown author actually composing it.
 
-
-## Sources
-
-*Many thanks to the following packages and lexicons!*
-
-Trump's tweet data is from Brendan Brown's [Trump Tweet Data Archive](https://github.com/bpb27/trump_tweet_data_archive)
-
-Trump aide data was scraped from Twitter using Ahmet Taspinar's [twitterscraper](https://github.com/taspinar/twitterscraper) with the query "twitterscraper 'from:twitter_handle since:2009-01-01 until:2017-12-31' -o scraped_tweets.json"
-
-VADER sentiment analysis was performed using [C.J. Hutto's VADER package](https://github.com/cjhutto/vaderSentiment)
-
-The National Research Council of Canada kindly gave me access to the [NRC Word-Emotion Association Lexicon](http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm). Contact: Saif Mohammad (saif.mohammad@nrc-cnrc.gc.ca)
-
-Lastly, I used Jared Suttles' [Tweetokenize](https://github.com/jaredks/tweetokenize) to aid in my part-of-speech analysis. An updated version of the package which works with Python 3 can be found in my fork [here](https://github.com/raffg/tweetokenize/tree/Python-3).
 
 
 ## Further Reading
