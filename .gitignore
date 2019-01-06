@@ -1,0 +1,34 @@
+# Raw data
+data/
+
+# .env
+.env/
+
+# Jupyter Notebooks
+*.ipynb_checkpoints
+*.ipynb
+
+# .pyc files
+*.pyc
+
+# twitterscraper query
+twitterscraper_query.txt
+
+# Stanford Named Entity Recognition (NER) library
+stanford-ner/
+
+# NRC Sentiment-Emotion Lexicons
+NRC-Sentiment-Emotion-Lexicons/
+
+# pickle files
+*.pkl
+
+# .npy and .npz files
+*.npy
+*.npz
+
+# presentation folder
+presentation/
+
+# ensemble pickles
+ensemble/
