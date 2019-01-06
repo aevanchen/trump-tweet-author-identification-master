@@ -1,6 +1,6 @@
 # Trump-Tweet Author Identification
 
-This project is an attempt to build a model which can identify if Trump is truly the author of any given tweet on his account, or if it was written and posted by an aide. It is widely reported in the news that many of his tweets are actually written by staff. With particularly controversial tweets, and especially given that he sometimes makes presidential decrees through his Twitter account, it can be enlightening to have greater certainty in the authorship of his tweets.
+This project is to identify the device the Trump used to write tweet with. The problem could also be interpreted as if Trump is truly the author of tweet on his account or the tweets are posted another person on behalf of him. Thus, the semantic information conveyed in the tweet are vital source to explore the features and external information like favourite count and retweet count might also be important.
 
 ![Did Trump Tweet It?](images/trump_ticker.gif)
 
