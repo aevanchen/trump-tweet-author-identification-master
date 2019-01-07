@@ -79,8 +79,10 @@ We have also tried Ridge Regression for shirinking the feature coefficients.
 Also, deep learning methods are used in the projects. 
 
 ![IAMGE1](images/opt.png)
-The validation accuracy with respect to tree depth for random forest classifier
 
+<p align="center">
+  <b>The validation accuracy with respect to tree depth for random forest classifier</b><br>
+</p>
 
 ## Results
 
@@ -92,8 +94,9 @@ As for the models, Random Forest performed the best on its own, with AdaBoost a 
 |---------|:--------------:|:-----------:|:-----------:|:-------------:|:-----------:|:------:|:---------:|:---------:|:--------:|
 |Accuracy|86.7%|86.7%|86.7%|85.8%|58.7%|80.7%|55.04%|80.2%|87.2%|
 
--> Summary of model results <-
-
+<p align="center">
+  <b>SUMMARY OF MODEL RESULTS</b><br>
+</p>
 
 Essentially, we need to model dependency of created features to the target label. Due to the
 size of feature we created, feature reduction is needed to remove unnecessary features. We
