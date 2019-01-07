@@ -78,7 +78,7 @@ I created models for KNN, SVM with linear kernel,Random Forest, Gradient Boostin
 We have also tried Ridge Regression for shirinking the feature coefficients.
 Also, deep learning methods are used in the projects. 
 
-![The validation accuracy with respect to tree depth for random forest classifier](images/opt.png)
+![The validation](images/opt.png)
 
 ## Results
 
@@ -103,14 +103,6 @@ downside of that, due to lack of dev set, during training, we have no idea if we
 training set. Therefore, we only trained 3 epoches, given the neural model is very shallow to
 avoid overfitting. Aslo, we add dropout after the first layer for the same purpose. The validation
 accuracy of our model achieves 0.871 for the neural model we created.
-
-## The Flynn Tweet
-
-And as for that Flynn Tweet? My analysis indicates it was most likely not written by Trump. However, my models are split evenly on this one. Some predict Trump, others not Trump. The Logistic Regression outputs a probability estimate of 97% and Naive Bayes of 94% that it did indeed come from Trump. Correspondingly, the [/@RPMMAS](https://twitter.com/RPMMAS) twitter account performed an informal poll of its users and received almost 2000 responses, with 96% indicating they believed the tweet to have come from Trump:
-
-![WH claims his lawyer wrote this tweet: "I had to fire General Flynn because he lied to the Vice President and the FBI. He has pled guilty to those lies. It is a shame because his actions during the transition were lawful. There was nothing to hide!" Do you believe that's true?](images/flynn_tweet_poll.png)
-
-A word of caution though: not all of my models individually agreed on this one. Specifically, AdaBoost, KNN, and SVM indicated that it is a non-Trump tweet. Random Forest, Naive Bayes, and Logistic Regression all output Trump as the author. In my opinion, after reviewing thousands of Trump tweets throughout this project and evaluating all features which describe his tweets, I find the topic, sentiment, and emotion very much to be Trumpian, while the phrasing, grammar, and style all indicate another author. I believe the tweet was written collaboratively, with Trump providing the topical features of the tweet and an unknown author actually composing it.
 
 
 
