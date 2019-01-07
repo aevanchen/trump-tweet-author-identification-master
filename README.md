@@ -78,7 +78,8 @@ I created models for KNN, SVM with linear kernel,Random Forest, Gradient Boostin
 We have also tried Ridge Regression for shirinking the feature coefficients.
 Also, deep learning methods are used in the projects. 
 
-![IAMGE1](images/opt.png "The validation accuracy with respect to tree depth for random forest classifier")
+![IAMGE1](images/opt.png)
+The validation accuracy with respect to tree depth for random forest classifier
 
 
 ## Results
@@ -90,6 +91,7 @@ As for the models, Random Forest performed the best on its own, with AdaBoost a 
 |          |KNN(K=3)|Random Forest|AdaBoost|Gradient Boosting|SVM| PCA+SVM|Naive Bayes|NB+PCA| Deep Learning|
 |---------|:--------------:|:-----------:|:-----------:|:-------------:|:-----------:|:------:|:---------:|:---------:|:--------:|
 |Accuracy|86.7%|86.7%|86.7%|85.8%|58.7%|80.7%|55.04%|80.2%|87.2%|
+
 -> Summary of model results <-
 
 
