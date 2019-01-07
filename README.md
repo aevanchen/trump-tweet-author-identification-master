@@ -78,7 +78,7 @@ I created models for KNN, SVM with linear kernel,Random Forest, Gradient Boostin
 We have also tried Ridge Regression for shirinking the feature coefficients.
 Also, deep learning methods are used in the projects. 
 
-![Ridge Regularization](images/ridge.png)
+![The validation accuracy with respect to tree depth for random forest classifier](images/opt.png)
 
 ## Results
 
@@ -86,8 +86,8 @@ Trump's tweets are in general more emotive than his aides' tweets, exhibiting hi
 
 As for the models, Random Forest performed the best on its own, with AdaBoost a close second. Naive Bayes performed most poorly of the models tested.
 
-|   |KNN(K=3)|Random Forest|AdaBoost|Gradient Boosting|SVM| PCA+SVM|Naive Bayes|NB+PCA| Deep Learning|
-|---:|:--------------:|:-----------:|:------:|:-------------:|:---:|:---:|:---------:|:---------:|
+|          |KNN(K=3)|Random Forest|AdaBoost|Gradient Boosting|SVM| PCA+SVM|Naive Bayes|NB+PCA| Deep Learning|
+|---------|:--------------:|:-----------:|:-----------:|:-------------:|:-----------:|:------:|:---------:|:---------:|:--------:|
 |Accuracy|86.7%|86.7%|86.7%|85.8%|58.7%|80.7%|55.04%|80.2%|87.2%|
 
 
