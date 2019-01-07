@@ -78,9 +78,9 @@ I created models for KNN, SVM with linear kernel,Random Forest, Gradient Boostin
 We have also tried Ridge Regression for shirinking the feature coefficients.
 Also, deep learning methods are used in the projects. 
 
-![The validation](images/opt.png)
+![IAMGE1](images/opt.png "The validation accuracy with respect to tree depth for random forest classifier")
 
-![The](images/trump_robot.jpg)
+
 ## Results
 
 Trump's tweets are in general more emotive than his aides' tweets, exhibiting high scores for the emotions surprise, anger, negativity, disgust, joy, sadness, and fear. Non-Trump tweets, in contrast, are relatively unemotional, and feature many URLs, hashtags, and organization names.
@@ -90,6 +90,7 @@ As for the models, Random Forest performed the best on its own, with AdaBoost a 
 |          |KNN(K=3)|Random Forest|AdaBoost|Gradient Boosting|SVM| PCA+SVM|Naive Bayes|NB+PCA| Deep Learning|
 |---------|:--------------:|:-----------:|:-----------:|:-------------:|:-----------:|:------:|:---------:|:---------:|:--------:|
 |Accuracy|86.7%|86.7%|86.7%|85.8%|58.7%|80.7%|55.04%|80.2%|87.2%|
+-> Summary of model results <-
 
 
 Essentially, we need to model dependency of created features to the target label. Due to the
