@@ -80,6 +80,7 @@ Also, deep learning methods are used in the projects.
 
 ![The validation](images/opt.png)
 
+![The](images/trump_robot.jpg)
 ## Results
 
 Trump's tweets are in general more emotive than his aides' tweets, exhibiting high scores for the emotions surprise, anger, negativity, disgust, joy, sadness, and fear. Non-Trump tweets, in contrast, are relatively unemotional, and feature many URLs, hashtags, and organization names.
